@@ -2,6 +2,8 @@
 
 A custom provider for terraform.
 
+[![Build Status](https://travis-ci.org/dishbreak/terraform-provider-auth0.svg?branch=master)](https://travis-ci.org/dishbreak/terraform-provider-auth0)
+
 ## Installation
 
 1. Download the latest [release](github.com/dnna/terraform-provider-auth0/releases) for your platform
