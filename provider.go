@@ -42,6 +42,10 @@ func Provider() *schema.Provider {
 			"auth0_grant":  resourceGrant(),
 		},
 
+		DataSourcesMap: map[string]*schema.Resource{
+			"auth0_client": dataSourceClient(),
+		},
+
 		ConfigureFunc: providerConfigure,
 	}
 }

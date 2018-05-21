@@ -10,7 +10,29 @@ A custom provider for terraform.
 2. rename the file to `terraform-provider-auth0`
 3. Copy the file to the same directory as terraform `dirname $(which terraform)` is installed
 
-## Usage
+## Provider Usage
+
+The provider itself requires 3 parameters:
+
+
+- `domain` - The provided domain for the Auth0 account
+- `client_id` - The client ID for the Application
+- `client_secret` - The client secret for the Applicaton.
+
+You can consult [the Auth0 Documentation](https://auth0.com/docs/api/management/v2/tokens#1-create-and-authorize-an-application) for steps on creating a Machine-to-Machine Application in your Auth0 tenant with access to its Auth0 Management API.
+
+Optionally, you may also manually specify a token using the `access_token` parameter:
+
+```
+provider "auth0" {
+    domain = "abc.eu.auth0.com"
+    access_token = "<ACCESS_TOKEN>"
+}
+```
+
+When you do this, the provider will not request a token on your behalf.
+
+## Resources
 
 ### auth0_client
 
@@ -50,30 +72,32 @@ resource.auth0_client.test-client.client_secret = "generated_client_secret"
 
 Arguments have the same names as provided in Auth0 Management API documentation (https://auth0.com/docs/api/management/v2#!/Clients).
 
-The provider itself requires 3 parameters:
-
-
-- `domain` - The provided domain for the Auth0 account
-- `client_id` - The client ID for the Application
-- `client_secret` - The client secret for the Applicaton.
-
-You can consult [the Auth0 Documentation](https://auth0.com/docs/api/management/v2/tokens#1-create-and-authorize-an-application) for steps on creating a Machine-to-Machine Application in your Auth0 tenant with access to its Auth0 Management API.
-
-Optionally, you may also manually specify a token using the `access_token` parameter:
-
-```
-provider "auth0" {
-    domain = "abc.eu.auth0.com"
-    access_token = "<ACCESS_TOKEN>"
-}
-```
-
-When you do this, the provider will not request a token on your behalf.
-
 #### Attributes Reference
 
 - `client_id` - The client ID of the new client
 - `client_secret` - The client secret of the new client
+
+## Data Sources
+
+### auth0_client
+
+Retrieves a named auth0 client.
+
+#### Example Usage
+
+```
+data "auth0_client" "vishal_test" {
+  name = "vishal test app"
+}
+```
+
+#### Argument Reference
+
+- `name` - The friendly name of the client.
+
+#### Attributes Reference
+
+- `client_id` - The ID of the client.
 
 ## Develop
 
